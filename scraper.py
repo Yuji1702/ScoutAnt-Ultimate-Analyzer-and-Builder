@@ -113,7 +113,7 @@ def extract_map_stats(map_url, target_player_name=None):
         map_outcome = extract_map_outcomes(soup, target_player_name)
         map_names_for_stats = [m for m in map_names if m != "All"]
         map_outcome_for_stats = [m for m in map_outcome if m != "All"]
-        # print(map_outcome_for_stats)
+        print(map_outcome_for_stats)
         tables = soup.find_all('table', class_='wf-table-inset mod-overview')
         all_players = []
         cleaned_target = clean_text(target_player_name).lower() if target_player_name else None

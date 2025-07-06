@@ -15,44 +15,66 @@ def clean_text(text):
     )
 
 def extract_map_outcomes(soup, target_player_name):
-    """Determines Win/Loss for each map by checking player location in first or second overview table"""
+    """Determines Win/Loss for each map by matching table position with score DOM structure"""
     outcomes = []
     target_clean = clean_text(target_player_name).lower()
 
     tables = soup.find_all('table', class_='wf-table-inset mod-overview')
-    table_index = 0
+    team_blocks = soup.select('div.vm-stats-game-header > div.team, div.vm-stats-game-header > div.team.mod-right')
 
-    while table_index + 3 <= len(tables):  
+    table_index = 0
+    team_block_index = 0  # Tracks which team div block we're reading (left/right)
+
+    while table_index + 3 <= len(tables) and team_block_index + 1 <= len(team_blocks):
         outcome = "Unknown"
+        team_position = None  # 0 if found in first table, 1 if in second
 
         try:
+            # Check first team's table (table 1)
             team1_table = tables[table_index]
             for row in team1_table.find('tbody').find_all('tr'):
                 cell = row.find('td', class_='mod-player')
                 if cell:
                     name_div = cell.find('div', class_='text-of')
                     if name_div and clean_text(name_div.text).lower() == target_clean:
-                        outcome = "Win"
+                        team_position = 0
                         break
 
-            if outcome == "Unknown":
+            # Check second team's table (table 2) only if not found above
+            if team_position is None:
                 team2_table = tables[table_index + 3]
                 for row in team2_table.find('tbody').find_all('tr'):
                     cell = row.find('td', class_='mod-player')
                     if cell:
                         name_div = cell.find('div', class_='text-of')
                         if name_div and clean_text(name_div.text).lower() == target_clean:
-                            outcome = "Loss"
+                            team_position = 1
                             break
+
+            # Now use team_position to access correct team block and determine win/loss
+            if team_position is not None:
+                team_block = team_blocks[team_block_index + team_position]  # 0 or 1
+                score_div = team_block.find('div', class_='score')
+                score_win_div = team_block.find('div', class_='score mod-win')
+
+                if score_win_div:
+                    outcome = "Win"
+                elif score_div:
+                    outcome = "Loss"
 
         except Exception:
             outcome = "Unknown"
 
         outcomes.append(outcome)
-        table_index += 2  
+        table_index += 2
+        team_block_index += 2  # Two team blocks per map
+
+    # Insert "All" to match the position, if needed
     if outcomes:
         outcomes.insert(1, "All")
+
     return outcomes
+
 
 
 
@@ -91,7 +113,7 @@ def extract_map_stats(map_url, target_player_name=None):
         map_outcome = extract_map_outcomes(soup, target_player_name)
         map_names_for_stats = [m for m in map_names if m != "All"]
         map_outcome_for_stats = [m for m in map_outcome if m != "All"]
-        print(map_outcome_for_stats)
+        # print(map_outcome_for_stats)
         tables = soup.find_all('table', class_='wf-table-inset mod-overview')
         all_players = []
         cleaned_target = clean_text(target_player_name).lower() if target_player_name else None
@@ -101,6 +123,7 @@ def extract_map_stats(map_url, target_player_name=None):
         for table_index, table in enumerate(tables):
             if table_index % 3 == 0 and table_index > 0:
                 map_index += 1
+                outcome_index += 1
 
             current_map = (
                 map_names_for_stats[map_index]
@@ -165,9 +188,9 @@ def extract_map_stats(map_url, target_player_name=None):
 
 if __name__ == "__main__":
     
-    map_url = "https://www.vlr.gg/487989/fut-esports-vs-team-vitality-esports-world-cup-2025-ubsf/?game=216874&tab=overview"
+    map_url = "https://www.vlr.gg/312779/gen-g-vs-sentinels-champions-tour-2024-masters-madrid-gf/?game=162351&tab=overview"
     
-    target_player = "Derke"  
+    target_player = "Tenz"  
     
     stats = extract_map_stats(map_url, target_player_name=target_player)
 

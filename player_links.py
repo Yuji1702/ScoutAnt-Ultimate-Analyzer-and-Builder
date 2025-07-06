@@ -20,7 +20,6 @@ def get_vlr_ids_for_players(player_names):
         # Try exact match first
         link = soup.find('a', href=re.compile(r'/player/\d+/'), string=re.compile(name, re.I))
         if not link:
-            # Fallback to first player match
             link = soup.find('a', href=re.compile(r'/player/\d+/'))
 
         if not link:
@@ -55,7 +54,7 @@ def get_all_match_links(player_id, player_slug):
         cards = soup.select('a.wf-card.fc-flex.m-item')
 
         if not cards:
-            break  # No more pages
+            break
 
         for card in cards:
             href = card.get('href')
@@ -64,33 +63,33 @@ def get_all_match_links(player_id, player_slug):
                 match_links.append(full_url)
 
         page += 1
-        time.sleep(1)  # polite delay
+        time.sleep(1)  # Be polite
 
     return match_links
 
 def scrape_player_matches(player_names):
+    if len(player_names) > 5:
+        print("⚠️ Only the first 5 players will be processed.")
+        player_names = player_names[:5]
+
     player_list = get_vlr_ids_for_players(player_names)
-    full_output = []
+    output_dict = {}
 
     for player in player_list:
         print(f"\n🔗 Getting matches for {player['name']}...")
         matches = get_all_match_links(player['vlr_id'], player['slug'])
         print(f"✅ Found {len(matches)} matches for {player['name']}")
 
-        full_output.append({
-            "name": player["name"],
-            "vlr_id": player["vlr_id"],
-            "slug": player["slug"],
-            "matches": matches
-        })
+        output_dict[player["name"]] = {
+            "links": matches
+        }
 
     with open("player_match_links.json", "w", encoding="utf-8") as f:
-        json.dump(full_output, f, indent=4, ensure_ascii=False)
+        json.dump(output_dict, f, indent=4, ensure_ascii=False)
 
     print("\n📁 Match links saved to 'player_match_links.json'")
 
-
 if __name__ == "__main__":
-    raw_input_names = input("Enter player names (comma-separated): ")
+    raw_input_names = input("Enter up to 5 player names (comma-separated): ")
     name_list = [n.strip() for n in raw_input_names.split(",") if n.strip()]
     scrape_player_matches(name_list)

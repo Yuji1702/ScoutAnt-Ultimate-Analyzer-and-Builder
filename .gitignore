@@ -1,3 +1,4 @@
 *.json
+!match_stats_db.json
 *.pyc
 __pycache__/

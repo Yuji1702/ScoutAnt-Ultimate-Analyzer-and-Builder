@@ -139,28 +139,25 @@ def create_presentation():
     
     # Text placeholder for demonstration info
     tf = slide.placeholders[1].text_frame
-    tf.text = "The following slides show screenshots of the system in action:"
-    
-    # We will add 3 images in separate slides or as content here.
-    # The requirement says "include placeholders for screenshots"
+    tf.text = "The following slides show the system in action, from scraping to data analysis:"
     
     # Screenshot 1: Terminal - Script Execution
     slide1 = prs.slides.add_slide(slide_layout)
     slide1.shapes.title.text = "Demo: Script Execution"
-    tf = slide1.placeholders[1].text_frame
-    tf.text = "[Screenshot Placeholder: Terminal window executing 'python analyzer.py']"
+    img_path = r'c:\Users\dhruv\OneDrive\Desktop\ScoutAnt-Ultimate-Analyzer-and-Builder\cmd_screenshot.png'
+    # Position the image (centered roughly)
+    slide1.shapes.add_picture(img_path, Inches(1), Inches(2), width=Inches(8))
     
-    # Screenshot 2: Terminal - Retrieval Output
+    # Screenshot 2: Terminal - Retrieval Output (Using same image as it shows both)
     slide2 = prs.slides.add_slide(slide_layout)
     slide2.shapes.title.text = "Demo: Data Retrieval Output"
-    tf = slide2.placeholders[1].text_frame
-    tf.text = "[Screenshot Placeholder: Terminal output showing match scraping progress]"
+    slide2.shapes.add_picture(img_path, Inches(1), Inches(2), width=Inches(8))
     
     # Screenshot 3: JSON File - Data Structure
     slide3 = prs.slides.add_slide(slide_layout)
     slide3.shapes.title.text = "Demo: Generated JSON Data"
-    tf = slide3.placeholders[1].text_frame
-    tf.text = "[Screenshot Placeholder: JSON file view (e.g., match_stats_db.json excerpt)]"
+    json_img_path = r'c:\Users\dhruv\OneDrive\Desktop\ScoutAnt-Ultimate-Analyzer-and-Builder\json_screenshot.png'
+    slide3.shapes.add_picture(json_img_path, Inches(2), Inches(2), width=Inches(6))
 
     # Save
     output_path = r'c:\Users\dhruv\OneDrive\Desktop\ScoutAnt-Ultimate-Analyzer-and-Builder\ScoutAnt_Synopsis_Final_Updated.pptx'

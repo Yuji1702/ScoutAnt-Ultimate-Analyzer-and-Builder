@@ -1,0 +1,36 @@
+Total matches: 63835
+Key: 639835_257040
+Map: Pearl
+Winner: TBK Esports
+Teams: TBK Esports vs 2Game Esports
+  name: 'murizzz'
+  agent: 'Astra'
+  rating: '1.16 1.16 1.17'
+  acs: '193 197 189'
+  k: '19 10 9'
+  d: '/  17 9 8  /'
+  a: '9 5 4'
+  kd_diff: '+2 +1 +1'
+  kast: '64% 79% 50%'
+  adr: '133 141 126'
+  hs_percent: '26% 24% 29%'
+  fk: '4 3 1'
+  fd: '2 0 2'
+  team: 'TBK Esports'
+--- Player 6 ---
+  name: 'Brinks'
+  agent: 'Killjoy'
+  rating: '1.27 1.24 1.30'
+  acs: '234 250 219'
+  k: '24 13 11'
+  d: '/  16 7 9  /'
+  a: '6 2 4'
+  kd_diff: '+8 +6 +2'
+  kast: '64% 71% 57%'
+  adr: '154 163 145'
+  hs_percent: '23% 26% 21%'
+  fk: '2 1 1'
+  fd: '1 0 1'
+  team: '2Game Esports'
+Maps: ['Abyss', 'Ascent', 'Bind', 'Breeze', 'Corrode', 'Fracture', 'Haven', 'Icebox', 'Lotus', 'N/A', 'Pearl', 'Split', 'Sunset', 'TBD']
+Agents: ['95b78ed7-4637-86d9-7', 'Astra', 'Breach', 'Brimstone', 'Chamber', 'Clove', 'Cypher', 'Deadlock', 'Fade', 'Gekko', 'Harbor', 'Iso', 'Jett', 'Kayo', 'Killjoy', 'Miks', 'Neon', 'Omen', 'Phoenix', 'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Tejo', 'Unknown', 'Veto', 'Viper', 'Vyse', 'Waylay', 'Yoru']

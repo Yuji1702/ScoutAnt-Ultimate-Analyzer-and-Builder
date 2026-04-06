@@ -1,0 +1,75 @@
+Shape: 623588 rows x 48 columns
+File size: 21.6 MB
+Unique players: 20439
+Unique maps: 12
+Unique agents: 28
+Unique matches: 25665
+
+Columns: ['match_id', 'map_id', 'map', 'player_name', 'agent', 'role', 'team', 'team_a', 'team_b', 'winner', 'is_winner', 'rating_total', 'rating_attack', 'rating_defense', 'acs_total', 'acs_attack', 'acs_defense', 'kills_total', 'kills_attack', 'kills_defense', 'deaths_total', 'deaths_attack', 'deaths_defense', 'assists_total', 'assists_attack', 'assists_defense', 'kd_diff_total', 'kd_diff_attack', 'kd_diff_defense', 'kast_total', 'kast_attack', 'kast_defense', 'adr_total', 'adr_attack', 'adr_defense', 'hs_pct_total', 'hs_pct_attack', 'hs_pct_defense', 'first_kills_total', 'first_kills_attack', 'first_kills_defense', 'first_deaths_total', 'first_deaths_attack', 'first_deaths_defense', 'kd_ratio', 'kd_ratio_attack', 'kd_ratio_defense', 'fk_fd_ratio']
+
+Maps: ['Abyss', 'Ascent', 'Bind', 'Breeze', 'Corrode', 'Fracture', 'Haven', 'Icebox', 'Lotus', 'Pearl', 'Split', 'Sunset']
+
+Agents: ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Clove', 'Cypher', 'Deadlock', 'Fade', 'Gekko', 'Harbor', 'Iso', 'Jett', 'Kayo', 'Killjoy', 'Neon', 'Omen', 'Phoenix', 'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Tejo', 'Veto', 'Viper', 'Vyse', 'Waylay', 'Yoru']
+
+Roles: {'Initiator': 182548, 'Duelist': 157489, 'Controller': 153197, 'Sentinel': 130354}
+
+Sample row:
+match_id                       639835
+map_id                         257040
+map                             Pearl
+player_name                   murizzz
+agent                           Astra
+role                       Controller
+team                      TBK Esports
+team_a                    TBK Esports
+team_b                  2Game Esports
+winner                    TBK Esports
+is_winner                           1
+rating_total                     1.16
+rating_attack                    1.16
+rating_defense                   1.17
+acs_total                       193.0
+acs_attack                      197.0
+acs_defense                     189.0
+kills_total                      19.0
+kills_attack                     10.0
+kills_defense                     9.0
+deaths_total                     17.0
+deaths_attack                     9.0
+deaths_defense                    8.0
+assists_total                     9.0
+assists_attack                    5.0
+assists_defense                   4.0
+kd_diff_total                     2.0
+kd_diff_attack                    1.0
+kd_diff_defense                   1.0
+kast_total                       64.0
+kast_attack                      79.0
+kast_defense                     50.0
+adr_total                       133.0
+adr_attack                      141.0
+adr_defense                     126.0
+hs_pct_total                     26.0
+hs_pct_attack                    24.0
+hs_pct_defense                   29.0
+first_kills_total                 4.0
+first_kills_attack                3.0
+first_kills_defense               1.0
+first_deaths_total                2.0
+first_deaths_attack               0.0
+first_deaths_defense              2.0
+kd_ratio                     1.117647
+kd_ratio_attack              1.111111
+kd_ratio_defense                1.125
+fk_fd_ratio                       2.0
+
+Numeric stats summary:
+        rating_total      acs_total    kills_total   deaths_total       kd_ratio      adr_total     kast_total
+count  623588.000000  623588.000000  623588.000000  623588.000000  623588.000000  623588.000000  623588.000000
+mean        0.899726     201.786465      14.713574      14.726125       1.088472     128.785180      63.653435
+std         0.448881      62.096744       5.510065       3.815953       0.615066      43.060654      24.350904
+min         0.000000       0.000000       0.000000       0.000000       0.000000       0.000000       0.000000
+25%         0.660000     159.000000      11.000000      13.000000       0.714286     103.000000      59.000000
+50%         0.940000     197.000000      14.000000      15.000000       1.000000     128.000000      70.000000
+75%         1.190000     240.000000      18.000000      17.000000       1.315789     155.000000      79.000000
+max         3.340000     637.000000      55.000000      40.000000      29.000000     405.000000     100.000000

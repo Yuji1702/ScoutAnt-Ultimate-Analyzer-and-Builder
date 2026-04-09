@@ -44,9 +44,9 @@ def analyze_composition_weakness(opponent_comp: List[str]) -> List[str]:
     Identifies missing roles or specific vulnerabilities in the opponent's agent selection.
     Note: This requires mapping agents to roles.
     """
-    from .prediction import ROLES, get_role_for_agent
+    from .config import ROLES, AGENT_ROLE_MAP
 
-    opponent_roles = [get_role_for_agent(agent) for agent in opponent_comp]
+    opponent_roles = [AGENT_ROLE_MAP.get(agent, "Unknown") for agent in opponent_comp]
     weaknesses = []
 
     for role in ROLES:
@@ -54,7 +54,7 @@ def analyze_composition_weakness(opponent_comp: List[str]) -> List[str]:
             weaknesses.append(f"Opponent lacks a {role}, creating a strategic opening for map control.")
 
     if len(opponent_comp) > 0:
-        duelists = [a for a in opponent_comp if get_role_for_agent(a) == "Duelist"]
+        duelists = [a for a in opponent_comp if AGENT_ROLE_MAP.get(a, "Unknown") == "Duelist"]
         if len(duelists) == 0:
             weaknesses.append("Opponent has no primary entry/duelist, potentially struggling with site takes.")
         elif len(duelists) >= 3:

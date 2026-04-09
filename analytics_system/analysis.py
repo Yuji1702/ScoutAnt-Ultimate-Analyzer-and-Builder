@@ -7,6 +7,9 @@ from .utils import (
     ROLES
 )
 from .prediction import predict_player_performance, predict_match_outcome
+from ml_pipeline.meta_analysis import get_top_agents_for_map
+from ml_pipeline.counter_logic import find_best_counter, analyze_composition_weakness
+from ml_pipeline.prediction import suggest_best_agent, suggest_best_composition
 
 def analyze_team(players: List[Dict[str, str]], map_name: str) -> Dict[str, Any]:
     """
@@ -156,7 +159,34 @@ def process_match_query(team_a: List[Dict[str, str]], team_b: List[Dict[str, str
 
     insights = generate_insights(ta_data, tb_data)
     reasoning = generate_reasoning(ta_data, tb_data)
-    
+
+    # --- Prescriptive Analytics Integration ---
+
+    # 1. Meta Context: Top agents for this map
+    top_agents = get_top_agents_for_map(map_name)
+    meta_agents = [a["agent"] for a in top_agents]
+    meta_context = f"The current meta for {map_name} favors agents like {', '.join(meta_agents)}."
+
+    # 2. Counter Analysis: How to counter Team B's agents
+    counter_analysis = []
+    for player in team_b:
+        agent = player["agent"]
+        counter = find_best_counter(agent, map_name)
+        if counter["agent"] != "Unknown":
+            counter_analysis.append(f"To counter {agent}, consider using {counter['agent']} ({counter['reason']}).")
+
+    # 3. Recommended Composition: Optimized agents for Team A
+    player_names_a = [p["name"] for p in team_a]
+    best_comp_res = suggest_best_composition(player_names_a, map_name)
+    recommended_comp = None
+    if best_comp_res["compositions"]:
+        best_c = best_comp_res["compositions"][0]
+        recommended_comp = [{"player": p, "agent": a} for p, a in best_c["players"]]
+
+    # 4. Composition Weakness: Analyzing Team B's flaws
+    opponent_agents = [p["agent"] for p in team_b]
+    comp_weaknesses = analyze_composition_weakness(opponent_agents)
+
     # Confidence tag
     max_prob = max(match_probs["team_a_win_probability"], match_probs["team_b_win_probability"])
     if max_prob >= 0.65:
@@ -175,6 +205,12 @@ def process_match_query(team_a: List[Dict[str, str]], team_b: List[Dict[str, str
         "team_a": ta_data,
         "team_b": tb_data,
         "insights": insights,
+        "prescriptive_analytics": {
+            "meta_context": meta_context,
+            "counter_analysis": counter_analysis,
+            "recommended_composition": recommended_comp,
+            "opponent_weaknesses": comp_weaknesses
+        },
         "note": "Predictions are probabilistic and not guaranteed outcomes."
     }
 
@@ -189,8 +225,12 @@ def process_player_query(player_name: str) -> Dict[str, Any]:
     if hist.empty:
         return {"error": f"No data found for {player_name}"}
 
+    # We need a map to suggest a best agent.
+    # Since process_player_query doesn't take a map, we find the player's most played map or use a default.
+    most_played_map = hist["map"].mode()[0] if not hist.empty else "Bind"
+
     total_matches = int(hist["match_count"].sum() if "match_count" in hist.columns else len(hist))
-    
+
     # Calculate averages
     avg_rating = round(hist["rating_total"].mean(), 2)
     avg_acs = round(hist["acs_total"].mean(), 2)
@@ -225,6 +265,12 @@ def process_player_query(player_name: str) -> Dict[str, Any]:
     if avg_kd > 1.1: strengths.append("Consistently positive kill/death ratio.")
     if avg_kd < 0.9: weaknesses.append("Tends to die more frequently than securing kills.")
 
+    # --- Prescriptive Integration ---
+    best_agent_res = suggest_best_agent(player_name, most_played_map)
+    recommended_agent = None
+    if "suggestions" in best_agent_res and best_agent_res["suggestions"]:
+        recommended_agent = best_agent_res["suggestions"][0]
+
     return {
         "player_name": player_name,
         "total_matches": total_matches,
@@ -240,5 +286,9 @@ def process_player_query(player_name: str) -> Dict[str, Any]:
         "role_performance": role_perf,
         "agent_performance": agent_perf,
         "strengths": strengths,
-        "weaknesses": weaknesses
+        "weaknesses": weaknesses,
+        "recommendations": {
+            "recommended_agent_on_most_played_map": recommended_agent,
+            "most_played_map": most_played_map
+        }
     }

@@ -1,6 +1,6 @@
 import json, sys
 
-with open("match_stats_db.json", "r", encoding="utf-8") as f:
+with open("C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/match_stats_db.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 matches = data["matches"]
@@ -32,7 +32,7 @@ output.append(f"Maps: {all_maps}")
 all_agents = sorted(set(p.get("agent","?") for v in matches.values() for p in v["players"]))
 output.append(f"Agents: {all_agents}")
 
-with open("inspect_result.txt", "w", encoding="utf-8") as f:
+with open("C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/inspect_result.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(output))
 
-print("Done - wrote inspect_result.txt")
+print("Done - wrote C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/inspect_result.txt")

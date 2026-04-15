@@ -60,5 +60,5 @@ def repair_db(db_path):
         print(f"❌ Verification failed: {e}")
 
 if __name__ == "__main__":
-    db_file = os.path.join(os.path.dirname(__file__), "match_stats_db.json")
+    db_file = "C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/match_stats_db.json"
     repair_db(db_file)

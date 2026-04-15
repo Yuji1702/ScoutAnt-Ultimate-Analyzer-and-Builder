@@ -7,7 +7,7 @@ import time
 import sys
 
 # Configuration
-DB_PATH = "match_stats_db.json"
+DB_PATH = "C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/match_stats_db.json"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }

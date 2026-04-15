@@ -3,7 +3,7 @@ import os
 from typing import List, Dict, Any
 
 # Use absolute path for DB to avoid issues with current working directory
-DB_PATH = "C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/match_stats_db.json"
+DB_PATH = "C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/match_stats_db.json"
 
 def load_db():
     if not os.path.exists(DB_PATH):

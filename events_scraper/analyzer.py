@@ -2,7 +2,7 @@ import json
 import os
 import statistics
 
-DB_PATH = "match_stats_db.json"
+DB_PATH = "C:/Users/dhruv/OneDrive/Desktop/ScoutAnt-Ultimate-Analyzer-and-Builder/data_raw/match_stats_db.json"
 
 def load_db():
     if not os.path.exists(DB_PATH):

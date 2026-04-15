@@ -12,7 +12,7 @@ import os
 # Base directory is the project root (parent of ml_pipeline/)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-RAW_DB_PATH = os.path.join(BASE_DIR, "match_stats_db.json")
+RAW_DB_PATH = os.path.join(BASE_DIR, "data_raw", "match_stats_db.json")
 
 # Output directory for cleaned data & models
 DATA_DIR = os.path.join(BASE_DIR, "ml_pipeline", "data")

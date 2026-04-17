@@ -11,16 +11,16 @@ interface Message {
   isBot: boolean;
 }
 
-const INITIAL_MESSAGES: Message[] = [
-  {
-    id: '1',
-    content: 'Welcome to ScoutAnt. How can I help you analyze your Valorant gameplay today?',
-    isBot: true,
-  }
-];
+interface ChatInterfaceProps {
+  onAnalysisData?: (data: any) => void;
+  initialMessage?: string;
+  onTypingStateChange?: (isTyping: boolean) => void;
+}
 
-export default function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+export default function ChatInterface({ onAnalysisData, initialMessage, onTypingStateChange }: ChatInterfaceProps) {
+  const [messages, setMessages] = useState<Message[]>(
+    initialMessage ? [{ id: '1', content: initialMessage, isBot: true }] : []
+  );
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -31,30 +31,58 @@ export default function ChatInterface() {
     }
   }, [messages, isTyping]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
+    const userMessage = inputValue.trim();
     const newUserMsg: Message = {
       id: Date.now().toString(),
-      content: inputValue.trim(),
+      content: userMessage,
       isBot: false,
     };
 
     setMessages(prev => [...prev, newUserMsg]);
     setInputValue('');
     setIsTyping(true);
+    if (onTypingStateChange) onTypingStateChange(true);
+    if (onAnalysisData) onAnalysisData(null); // Reset analysis while fetching
 
-    // Mock bot reply
-    setTimeout(() => {
+    try {
+      const response = await fetch('http://localhost:8000/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: userMessage }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to connect to backend AI server');
+      }
+      
+      const data = await response.json();
+      
       const newBotMsg: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'm analyzing the latest match stats based on your input. My advanced algorithms are connecting to the data pipeline. Please check back when integration is fully complete.",
+        content: data.response,
         isBot: true,
       };
       setMessages(prev => [...prev, newBotMsg]);
+
+      if (data.data && onAnalysisData) {
+        onAnalysisData(data.data);
+      }
+    } catch (error) {
+       setMessages(prev => [...prev, {
+        id: (Date.now() + 1).toString(),
+        content: "Sorry, I couldn't connect to the backend system. Please make sure the Python API is running on localhost:8000.",
+        isBot: true,
+      }]);
+    } finally {
       setIsTyping(false);
-    }, 1200);
+      if (onTypingStateChange) onTypingStateChange(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -65,13 +93,13 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 relative w-full">
+    <div className="flex flex-col h-full bg-background relative w-full transition-colors duration-300 overflow-hidden">
       {/* Mobile Header */}
-      <header className="md:hidden h-14 border-b border-gray-800 flex items-center px-4 shrink-0 bg-gray-900">
-        <button className="p-2 -ml-2 text-gray-400 hover:text-gray-100">
+      <header className="md:hidden h-14 border-b border-border flex items-center px-4 shrink-0 bg-background transition-colors">
+        <button className="p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors">
           <Menu className="w-6 h-6" />
         </button>
-        <h2 className="text-base font-semibold text-gray-100 ml-2">
+        <h2 className="text-base font-semibold text-foreground ml-2 transition-colors">
           ScoutAnt AI
         </h2>
       </header>
@@ -81,10 +109,10 @@ export default function ChatInterface() {
         <div className="flex flex-col pb-36 pt-8">
           {messages.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center pt-20 px-4">
-              <div className="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center mb-6 shadow-xl">
+              <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center mb-6 shadow-xl transition-colors">
                 <span className="font-bold text-2xl">S</span>
               </div>
-              <h1 className="text-3xl tracking-tight font-semibold text-gray-100 mb-2">How can I help you today?</h1>
+              <h1 className="text-3xl tracking-tight font-semibold text-foreground mb-2 transition-colors">How can I help you today?</h1>
             </div>
           )}
           
@@ -92,14 +120,14 @@ export default function ChatInterface() {
             <MessageBubble key={msg.id} {...msg} />
           ))}
           {isTyping && (
-            <div className="max-w-3xl mx-auto w-full px-4 py-8 flex items-center gap-4 text-gray-400">
-              <div className="h-8 w-8 rounded-full border border-gray-600 shadow-sm bg-white text-black shrink-0 flex items-center justify-center">
+            <div className="max-w-3xl mx-auto w-full px-4 py-8 flex items-center gap-4 text-muted-foreground transition-colors">
+              <div className="h-8 w-8 rounded-full border border-border shadow-sm bg-primary text-primary-foreground shrink-0 flex items-center justify-center transition-colors">
                  <span className="font-bold">S</span>
               </div>
               <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
               </div>
             </div>
           )}
@@ -107,28 +135,28 @@ export default function ChatInterface() {
       </ScrollArea>
 
       {/* Input Area */}
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-gray-900 via-gray-900/90 to-transparent pt-10 pb-6 px-4">
+      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-background via-background/90 to-transparent pt-10 pb-6 px-4 transition-colors">
         <div className="max-w-3xl mx-auto">
           <form 
             onSubmit={handleSubmit}
-            className="flex items-end gap-2 bg-gray-800 focus-within:bg-gray-800 rounded-2xl px-3 py-3 border border-gray-700/50 shadow-lg relative transition-all"
+            className="flex items-end gap-2 bg-card focus-within:bg-background rounded-2xl px-3 py-3 border border-border shadow-lg relative transition-all"
           >
             <textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Message ScoutAnt..."
-              className="w-full bg-transparent resize-none max-h-48 min-h-[44px] border-0 focus:ring-0 text-gray-100 placeholder:text-gray-500 pt-2.5 px-2 font-medium"
+              className="w-full bg-transparent resize-none max-h-48 min-h-[44px] border-0 focus:border-0 outline-none focus:outline-none focus:ring-0 text-foreground placeholder:text-muted-foreground pt-2.5 px-2 font-medium transition-colors"
               rows={1}
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: 'hidden', boxShadow: 'none' }}
             />
-            <button 
+              <button 
               type="submit" 
               disabled={!inputValue.trim() || isTyping}
-              className={`p-2 rounded-xl shrink-0 transition-all ${
+              className={`p-2 rounded-xl shrink-0 transition-all duration-300 ${
                 inputValue.trim() && !isTyping 
-                  ? 'bg-white text-black hover:bg-gray-200 cursor-pointer shadow-sm' 
-                  : 'bg-gray-700 text-gray-500 cursor-default'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer shadow-md' 
+                  : 'bg-muted text-muted-foreground cursor-not-allowed'
               }`}
             >
               <ArrowUp className="w-5 h-5 font-bold" />
@@ -136,7 +164,7 @@ export default function ChatInterface() {
             </button>
           </form>
           <div className="text-center mt-3 h-5">
-            <span className="text-xs text-gray-500 font-medium">
+            <span className="text-xs text-muted-foreground font-medium transition-colors">
               ScoutAnt AI can make mistakes. Consider verifying match data.
             </span>
           </div>

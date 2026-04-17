@@ -11,7 +11,14 @@ interface TeamRadarChartProps {
 
 export default function TeamRadarChart({ teamA, teamB }: TeamRadarChartProps) {
   // Synthesize 5 dimensions for the radar chart based on the ML data
-  
+  if (!teamA.players || teamA.players.length === 0 || !teamB.players || teamB.players.length === 0) {
+    return (
+      <div className="w-full h-64 md:h-80 flex items-center justify-center text-gray-500 dark:text-gray-400 font-medium bg-gray-50/50 dark:bg-gray-800/20 rounded-xl border border-gray-100 dark:border-gray-800">
+        Data not found to generate composition matchup
+      </div>
+    );
+  }
+
   const calcFlexibility = (team: MLTeamInsights) => {
     if (!team.players || team.players.length === 0) return 60;
     return (team.players.reduce((acc, p) => acc + p.flexibility_score, 0) / team.players.length) / 5 * 100;

@@ -12,8 +12,13 @@ interface PlayerBarChartProps {
 }
 
 export default function PlayerBarChart({ team, teamName, color, dataKey }: PlayerBarChartProps) {
-  
-  if (!team.players) return null;
+  if (!team.players || team.players.length === 0) {
+    return (
+      <div className="w-full h-64 md:h-72 flex items-center justify-center text-gray-500 dark:text-gray-400 font-medium bg-gray-50/50 dark:bg-gray-800/20 rounded-xl border border-gray-100 dark:border-gray-800">
+        Data not found for {teamName}
+      </div>
+    );
+  }
   
   // Sort players by the chosen metric descending
   const sortedPlayers = [...team.players].sort((a, b) => b[dataKey] - a[dataKey]);

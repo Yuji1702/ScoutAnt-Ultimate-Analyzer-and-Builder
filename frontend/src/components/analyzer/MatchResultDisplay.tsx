@@ -70,6 +70,81 @@ export default function MatchResultDisplay({ data }: MatchResultDisplayProps) {
         </CardContent>
       </Card>
 
+      {/* TEAM ROSTERS SECTION */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+         {/* Team A Roster */}
+         <Card className="bg-white/90 dark:bg-gray-900/60 shadow-lg border-blue-200 dark:border-blue-900/30 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-16 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none" />
+            <CardHeader className="pb-3 border-b border-blue-100 dark:border-blue-900/50">
+               <CardTitle className="text-lg flex items-center gap-2 text-blue-700 dark:text-blue-400">
+                  <Users className="w-5 h-5" /> Team A Selected Roster
+               </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 space-y-3 relative z-10">
+               {data.team_a.players.map((p, idx) => (
+                 <div key={idx} className="flex flex-col bg-gray-50/80 dark:bg-gray-800/60 p-3 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-sm transition-all hover:border-blue-300 dark:hover:border-blue-500/50 hover:bg-white dark:hover:bg-gray-800">
+                    <div className="flex justify-between items-center mb-2">
+                       <span className="font-bold text-gray-900 dark:text-gray-100 text-base">{p.name}</span>
+                       <Badge variant="outline" className="bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border-blue-200 dark:border-blue-800 shadow-sm">
+                          {p.agent}
+                       </Badge>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Proj. Rating</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200">{p.predicted_rating.toFixed(2)}</span>
+                       </div>
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Proj. ACS</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200">{p.predicted_acs.toFixed(0)}</span>
+                       </div>
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Best Role</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200 truncate" title={p.best_role}>{p.best_role}</span>
+                       </div>
+                    </div>
+                 </div>
+               ))}
+            </CardContent>
+         </Card>
+
+         {/* Team B Roster */}
+         <Card className="bg-white/90 dark:bg-gray-900/60 shadow-lg border-red-200 dark:border-red-900/30 overflow-hidden relative">
+            <div className="absolute top-0 left-0 p-16 bg-red-500/10 blur-[100px] rounded-full pointer-events-none" />
+            <CardHeader className="pb-3 border-b border-red-100 dark:border-red-900/50">
+               <CardTitle className="text-lg flex items-center gap-2 text-red-700 dark:text-red-400">
+                  <Users className="w-5 h-5" /> Team B Selected Roster
+               </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 space-y-3 relative z-10">
+               {data.team_b.players.map((p, idx) => (
+                 <div key={idx} className="flex flex-col bg-gray-50/80 dark:bg-gray-800/60 p-3 rounded-xl border border-gray-200 dark:border-gray-700/50 shadow-sm transition-all hover:border-red-300 dark:hover:border-red-500/50 hover:bg-white dark:hover:bg-gray-800">
+                    <div className="flex justify-between items-center mb-2">
+                       <span className="font-bold text-gray-900 dark:text-gray-100 text-base">{p.name}</span>
+                       <Badge variant="outline" className="bg-red-50 text-red-700 dark:bg-red-900/40 dark:text-red-300 border-red-200 dark:border-red-800 shadow-sm">
+                          {p.agent}
+                       </Badge>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Proj. Rating</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200">{p.predicted_rating.toFixed(2)}</span>
+                       </div>
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Proj. ACS</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200">{p.predicted_acs.toFixed(0)}</span>
+                       </div>
+                       <div className="bg-white dark:bg-gray-900 rounded p-1.5 text-center border border-gray-100 dark:border-gray-800">
+                          <span className="block text-gray-500 dark:text-gray-500 uppercase font-bold text-[10px]">Best Role</span>
+                          <span className="font-semibold text-gray-800 dark:text-gray-200 truncate" title={p.best_role}>{p.best_role}</span>
+                       </div>
+                    </div>
+                 </div>
+               ))}
+            </CardContent>
+         </Card>
+      </div>
+
       {/* CHARTS GRID */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         

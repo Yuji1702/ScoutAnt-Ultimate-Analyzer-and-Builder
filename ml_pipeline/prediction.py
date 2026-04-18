@@ -23,22 +23,24 @@ from ml_pipeline.config import (
 )
 
 
+from functools import lru_cache
+
+@lru_cache(maxsize=2)
 def _load_model(path):
     """Load a saved sklearn pipeline from disk."""
     if not os.path.exists(path):
         raise FileNotFoundError(f"Model not found: {path}. Run model_training first.")
     return joblib.load(path)
 
-
+@lru_cache(maxsize=1)
 def _load_player_features():
     """Load the player feature DataFrame."""
     return pd.read_parquet(PLAYER_FEATURES_PARQUET)
 
-
+@lru_cache(maxsize=1)
 def _load_player_stats():
     """Load the raw player stats DataFrame."""
     return pd.read_parquet(PLAYER_STATS_PARQUET)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 1. PLAYER PREDICTION

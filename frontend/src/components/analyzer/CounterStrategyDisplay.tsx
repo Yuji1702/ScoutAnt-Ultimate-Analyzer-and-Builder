@@ -3,7 +3,8 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Crosshair, Shield } from 'lucide-react';
+import { Crosshair, Shield, Zap, Info } from 'lucide-react';
+import WinRateComparisonChart from './charts/WinRateComparisonChart';
 
 export default function CounterStrategyDisplay({ data }: { data: any }) {
   if (!data || !data.agent) return null;
@@ -20,31 +21,56 @@ export default function CounterStrategyDisplay({ data }: { data: any }) {
                   <Crosshair className="w-6 h-6 text-red-500" />
                   Counter Strategy
                 </span>
-                <Badge className="px-4 py-1.5 text-sm bg-red-600 hover:bg-red-700 text-white">
-                  Strategy
+                <Badge className="px-4 py-1.5 text-sm bg-red-600 hover:bg-red-700 text-white shadow-md">
+                   {data.map} Analysis
                 </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-6 px-6 space-y-8">
               
-              <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-500/20 rounded-xl p-5 transition-colors duration-300">
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium pb-2 transition-colors">Recommended Counter Pick</p>
+              {/* PRIMARY RECOMMENDATION */}
+              <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-500/20 rounded-xl p-5 transition-colors duration-300 shadow-sm">
+                <div className="flex justify-between items-center mb-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-bold uppercase tracking-wider flex items-center gap-2">
+                        <Shield className="w-4 h-4" /> Pick to Counter
+                    </p>
+                    <Badge variant="outline" className="border-red-400 text-red-600 dark:text-red-400 font-black">
+                        {data.win_rate_vs}% Win Probability
+                    </Badge>
+                </div>
                 <div className="flex items-center gap-3">
-                  <div className="bg-red-100 dark:bg-red-500/20 rounded-full p-2">
-                    <Shield className="w-5 h-5 text-red-600 dark:text-red-500" />
-                  </div>
-                  <span className="text-2xl font-bold text-red-700 dark:text-red-400">{data.agent}</span>
+                  <span className="text-3xl font-black text-red-700 dark:text-red-400 drop-shadow-sm">{data.agent}</span>
+                  <span className="text-gray-400 text-sm italic">vs</span>
+                  <span className="text-xl font-bold text-gray-500 dark:text-gray-500 line-through opacity-50">{data.target_agent}</span>
                 </div>
               </div>
 
+              {/* VISUALIZATION: WIN RATE COMPARISON */}
               <div className="space-y-4">
-                 <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors">
-                    Tactical Reasoning
+                 <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-yellow-500" /> Matchup Advantage
                  </h4>
-                 <div className="bg-gray-50 dark:bg-gray-800/40 border border-gray-100 dark:border-gray-700/50 rounded-xl p-5 shadow-sm">
-                   <p className="text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
-                     {data.reason || "The AI model has determined this agent provides the highest statistical advantage in this matchup based on historical performance data."}
-                   </p>
+                 <WinRateComparisonChart 
+                    agentA={data.agent} 
+                    agentB={data.target_agent} 
+                    winRateA={data.win_rate_vs || 55} 
+                 />
+              </div>
+
+              {/* TACTICAL ROADMAP */}
+              <div className="space-y-4">
+                 <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
+                    <Info className="w-4 h-4 text-blue-500" /> Strategic Steps
+                 </h4>
+                 <div className="space-y-3">
+                    {data.strategic_steps?.map((step: string, idx: number) => (
+                      <div key={idx} className="flex gap-4 items-start bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800 transition-all hover:bg-white dark:hover:bg-gray-800">
+                        <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs shrink-0">
+                          {idx + 1}
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">{step}</p>
+                      </div>
+                    ))}
                  </div>
               </div>
 
@@ -55,3 +81,4 @@ export default function CounterStrategyDisplay({ data }: { data: any }) {
     </div>
   );
 }
+

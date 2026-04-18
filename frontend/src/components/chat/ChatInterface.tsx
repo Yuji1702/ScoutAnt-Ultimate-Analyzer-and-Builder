@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowUp, Menu } from 'lucide-react';
-import { ScrollArea } from "@/components/ui/scroll-area";
 import MessageBubble from "./MessageBubble";
 
 interface Message {
@@ -54,8 +53,12 @@ export default function ChatInterface({ onAnalysisData, initialMessage, onTyping
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessage }),
+        body: JSON.stringify({ message: userMessage })
       });
+      
+      if (response.status === 503) {
+        throw new Error('AI_INITIALIZING');
+      }
       
       if (!response.ok) {
         throw new Error('Failed to connect to backend AI server');
@@ -73,10 +76,20 @@ export default function ChatInterface({ onAnalysisData, initialMessage, onTyping
       if (data.data && onAnalysisData) {
         onAnalysisData(data.data);
       }
-    } catch (error) {
+    } catch (error: any) {
+       console.error("Chat Error:", error);
+       let errorMessage = "Sorry, I couldn't connect to the backend system. Please make sure the Python API is running on localhost:8000.";
+       
+       if (error.message === 'AI_INITIALIZING') {
+         errorMessage = "The AI system is still warming up (loading ML models). This usually takes 30-40 seconds on the first run. Please wait a moment and try your request again.";
+       } else if (error.name === 'AbortError') {
+         errorMessage = "The request took too long. The backend might be overloaded. Please try again.";
+       }
+
+
        setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
-        content: "Sorry, I couldn't connect to the backend system. Please make sure the Python API is running on localhost:8000.",
+        content: errorMessage,
         isBot: true,
       }]);
     } finally {
@@ -105,8 +118,8 @@ export default function ChatInterface({ onAnalysisData, initialMessage, onTyping
       </header>
 
       {/* Chat Area */}
-      <ScrollArea className="flex-1 w-full" ref={scrollRef}>
-        <div className="flex flex-col pb-36 pt-8">
+      <div className="flex-1 w-full overflow-y-auto scrollbar-hide-default" ref={scrollRef}>
+        <div className="flex flex-col pb-36 pt-8 min-h-max">
           {messages.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center pt-20 px-4">
               <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center mb-6 shadow-xl transition-colors">
@@ -132,7 +145,7 @@ export default function ChatInterface({ onAnalysisData, initialMessage, onTyping
             </div>
           )}
         </div>
-      </ScrollArea>
+      </div>
 
       {/* Input Area */}
       <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-background via-background/90 to-transparent pt-10 pb-6 px-4 transition-colors">
@@ -155,7 +168,7 @@ export default function ChatInterface({ onAnalysisData, initialMessage, onTyping
               disabled={!inputValue.trim() || isTyping}
               className={`p-2 rounded-xl shrink-0 transition-all duration-300 ${
                 inputValue.trim() && !isTyping 
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/80 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer shadow-md' 
+                  ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer shadow-md' 
                   : 'bg-muted text-muted-foreground cursor-not-allowed'
               }`}
             >

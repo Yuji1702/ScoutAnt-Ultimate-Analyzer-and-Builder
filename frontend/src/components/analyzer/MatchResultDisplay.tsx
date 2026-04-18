@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { MLMatchQueryResponse } from '@/types/ml';
 import TeamRadarChart from './charts/TeamRadarChart';
 import PlayerBarChart from './charts/PlayerBarChart';
-import { Sparkles, Map, Swords, BrainCircuit, Users, TrendingUp } from 'lucide-react';
+import { Sparkles, Map, Swords, BrainCircuit, Users, TrendingUp, Zap } from 'lucide-react';
 
 interface MatchResultDisplayProps {
   data: MLMatchQueryResponse;
@@ -21,7 +21,7 @@ export default function MatchResultDisplay({ data }: MatchResultDisplayProps) {
       
       {/* HEADER CARD */}
       <Card className="bg-white/90 dark:bg-gray-900/60 shadow-xl dark:shadow-2xl border-gray-200 dark:border-gray-800/50 backdrop-blur-md overflow-hidden transition-all duration-300 hover:shadow-blue-900/5 hover:border-blue-500/20">
-        <div className={`h-1.5 w-full bg-gradient-to-r ${teamAWins ? 'from-blue-500 to-blue-400' : 'from-red-500 to-red-400'}`} />
+        <div className={`h-1.5 w-full bg-gradient-to-r ${teamAWins ? 'from-[#3b82f6] to-[#60a5fa]' : 'from-[#ef4444] to-[#f87171]'}`} />
         <CardHeader className="pb-4">
           <div className="flex justify-between items-start">
             <div>
@@ -50,18 +50,18 @@ export default function MatchResultDisplay({ data }: MatchResultDisplayProps) {
           <div className="space-y-2 bg-gray-50 dark:bg-gray-800/50 p-5 rounded-2xl border border-gray-100 dark:border-gray-700/50">
             <div className="flex justify-between items-end mb-2">
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-blue-600 dark:text-blue-400">Team A</span>
+                <span className="text-sm font-bold text-[#3b82f6]">Team A</span>
                 <span className="text-2xl font-black text-gray-900 dark:text-white">{(data.team_a_win_probability * 100).toFixed(1)}%</span>
               </div>
               <div className="flex flex-col items-end">
-                <span className="text-sm font-bold text-red-600 dark:text-red-400">Team B</span>
+                <span className="text-sm font-bold text-[#ef4444]">Team B</span>
                 <span className="text-2xl font-black text-gray-900 dark:text-white">{(data.team_b_win_probability * 100).toFixed(1)}%</span>
               </div>
             </div>
-            <div className="h-4 w-full bg-red-500 rounded-full overflow-hidden flex relative">
+            <div className="h-4 w-full rounded-full overflow-hidden flex relative" style={{ backgroundColor: '#ef4444' }}>
               <div 
-                className="h-full bg-blue-500 transition-all duration-1000 ease-out z-10"
-                style={{ width: `${data.team_a_win_probability * 100}%` }}
+                className="h-full transition-all duration-1000 ease-out z-10"
+                style={{ width: `${data.team_a_win_probability * 100}%`, backgroundColor: '#3b82f6' }}
               />
               {/* Optional marker at 50% */}
               <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/50 z-20" />
@@ -223,8 +223,33 @@ export default function MatchResultDisplay({ data }: MatchResultDisplayProps) {
             </div>
 
           </div>
+
+          {/* STRATEGIC ROADMAP (PHASES) */}
+          {data.strategic_roadmap && (
+            <div className="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800 relative z-10">
+                <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                    <Zap className="w-4 h-4 text-blue-500" /> Strategic Roadmap
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {data.strategic_roadmap.map((step, idx) => (
+                      <div key={idx} className="bg-gray-50 dark:bg-gray-900/60 p-5 rounded-2xl border border-gray-100 dark:border-gray-800/50 shadow-sm relative overflow-hidden group hover:border-blue-400 dark:hover:border-blue-500/50 transition-all duration-300">
+                          <div className="absolute -right-2 -top-2 text-6xl font-black text-gray-200 dark:text-gray-800/20 group-hover:text-blue-100 dark:group-hover:text-blue-900/10 transition-colors">
+                              {idx + 1}
+                          </div>
+                          <h5 className="font-bold text-gray-900 dark:text-gray-100 mb-2 relative z-10">
+                              {idx === 0 ? "Early Phase" : idx === 1 ? "Mid Game" : "Late Game"}
+                          </h5>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 relative z-10 leading-relaxed">
+                              {step}
+                          </p>
+                      </div>
+                    ))}
+                </div>
+            </div>
+          )}
         </CardContent>
       </Card>
+
 
     </div>
   );

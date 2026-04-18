@@ -33,5 +33,6 @@ export interface MLMatchQueryResponse {
   team_a: MLTeamInsights;
   team_b: MLTeamInsights;
   insights: string[];
+  strategic_roadmap?: string[];
   note: string;
 }

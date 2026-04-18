@@ -71,7 +71,7 @@ export default function PlayerProfileDisplay({ data }: { data: any }) {
                              <RechartsTooltip 
                                  contentStyle={{backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', color: '#f3f4f6'}}
                                  itemStyle={{color: '#fff'}}
-                                 formatter={(value: number) => [`${value}%`, 'Play Rate']}
+                                 formatter={(value: any) => [`${value}%`, 'Play Rate']}
                              />
                              <Legend verticalAlign="bottom" height={36}/>
                          </PieChart>

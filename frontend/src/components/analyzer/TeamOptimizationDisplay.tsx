@@ -3,7 +3,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, LayoutList } from 'lucide-react';
+import { Users, LayoutList, TrendingUp } from 'lucide-react';
 
 export default function TeamOptimizationDisplay({ data }: { data: any }) {
   if (!data || !data.compositions || data.compositions.length === 0) return null;
@@ -64,6 +64,22 @@ export default function TeamOptimizationDisplay({ data }: { data: any }) {
                  </div>
               </div>
 
+              <div className="space-y-4">
+                 <h4 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors pt-4 border-t border-gray-100 dark:border-gray-700/30 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4 text-green-500" /> Strategic Roadmap
+                 </h4>
+                 <div className="space-y-3">
+                    {data.strategic_roadmap?.map((step: string, idx: number) => (
+                      <div key={idx} className="flex gap-4 items-start bg-gray-50 dark:bg-gray-900/40 p-4 rounded-xl border border-gray-100 dark:border-gray-800 transition-all hover:bg-white dark:hover:bg-gray-800">
+                        <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-xs shrink-0">
+                          {idx + 1}
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">{step}</p>
+                      </div>
+                    ))}
+                 </div>
+              </div>
+
             </CardContent>
           </Card>
         </div>
@@ -71,3 +87,4 @@ export default function TeamOptimizationDisplay({ data }: { data: any }) {
     </div>
   );
 }
+

@@ -191,8 +191,11 @@ def predict_match_outcome(team_a: List[Dict[str, str]], team_b: List[Dict[str, s
     input_df = pd.DataFrame([row])
 
     # Make sure we have the right columns
-    match_df = load_match_features()
-    model_cols = [c for c in match_df.columns if c.startswith(("ta_", "tb_", "delta_")) or c == "map"]
+    # Optimization: We know which columns the model expects based on the features we just built
+    # Instead of loading a huge parquet file just for column names, we use the known schema
+    model_cols = ["map"] + list(ta_feats.keys()) + list(tb_feats.keys())
+    for ta_suffix, _ in delta_cols:
+        model_cols.append(f"delta_{ta_suffix}")
 
     for col in model_cols:
         if col not in input_df.columns:

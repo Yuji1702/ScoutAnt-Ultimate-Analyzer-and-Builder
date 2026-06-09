@@ -1,0 +1,419 @@
+--- Page 47 ---
+41 
+ 
+TITLE OF MINI PROJECT REPORT 
+<Hard Binding cover page, Times New Roman, Font Size 20><1.5 line spacing> 
+  
+ 
+A Mini Project Report Submitted 
+< Times New Roman, Font Size 14, Italic> 
+ 
+ 
+in 
+BRANCH NAME 
+< Times New Roman, Font Size 16><1.5 line spacing> 
+ 
+by 
+ 
+NAME OF STUDENT (Roll No.XXXXXX) 
+NAME OF STUDENT (Roll No.XXXXXX) 
+NAME OF STUDENT (Roll No.XXXXXX) 
+NAME OF STUDENT (Roll No.XXXXXX) 
+< Times New Roman, Font Size 14> 
+ 
+ 
+ 
+Under the Supervision of <font size 12> 
+Prof. (Dr.) NAME OF SUPERVISOR 
+Designation, Department 
+< Times New Roman, font size 14> 
+ 
+ 
+ 
+ 
+Department Name 
+School Name 
+NOIDA INSTITUTE OF ENGINEERING AND TECHNOLOGY, 
+GREATER NOIDA 
+(An Autonomous Institute) 
+Affiliated to 
+DR. A.P.J. ABDUL KALAM TECHNICAL UNIVERSITY, LUCKNOW 
+Month, Year 
+< Times New Roman, font size 14> 
+
+--- Page 48 ---
+42 
+ 
+                            
+<SPECIMEN 1st page of project report> 
+APPLICATION OF ARTIFICIAL 
+INTELLIGENCE  IN 5G AND IOT 
+APPLICATIONS 
+ 
+ 
+A Mini Project Report Submitted 
+ 
+ 
+In 
+COMPUTER SCIENCE & ENGINEERING 
+DEPARTMENT 
+ 
+By 
+ 
+ABCEDFGH (Roll No. 123456789) 
+XYZABCDEF (Roll No. 987654321) 
+ 
+ 
+ 
+ 
+Under the Supervision of  
+Prof. (Dr.) XXXXXXXXXX 
+Professor, Computer Science & Engineering  
+ 
+ 
+ 
+ 
+ 
+Computer Science & Engineering Department  
+School of Computer Science & Information Technology 
+NOIDA INSTITUTE OF ENGINEERING AND TECHNOLOGY, 
+GREATER NOIDA 
+(An Autonomous Institute) 
+Affiliated to 
+DR. A.P.J. ABDUL KALAM TECHNICAL UNIVERSITY, LUCKNOW 
+May, 2025      
+ 
+
+--- Page 49 ---
+ 
+i 
+ 
+DECLARATION 
+<Times New Roman, font size 14> 
+ 
+We hereby declare that the work presented in this report entitled “MINI PROJECT REPORT 
+TITLE”, was carried out by us. We have not submitted the matter embodied in this report for 
+the award of any other degree or diploma of any other University or Institute. We have given 
+due credit to the original authors/sources for all the words, ideas, diagrams, graphics, computer 
+programs, experiments, results, that are not my original contribution. We have used quotation 
+marks to identify verbatim sentences and given credit to the original authors/sources. 
+ We affirm that no portion of our work is plagiarized, and the experiments and results reported 
+in the report are not manipulated. In the event of a complaint of plagiarism and the manipulation 
+of the experiments and results, we shall be fully responsible and answerable. 
+< Times New Roman, font size 12> 
+ 
+Name                 :   
+Roll Number     :  
+(Candidate Signature) 
+ Name                 :   
+Roll Number     :  
+(Candidate Signature)  
+Name                 :   
+Roll Number     :  
+(Candidate Signature)  
+Name                 :   
+Roll Number     :  
+  (Candidate Signature) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 50 ---
+ 
+ii 
+ 
+CERTIFICATE  
+< Times New Roman, font size 14> 
+ 
+Certified that Name of Student_1 (Roll No_1: xxxxxxxxxxxxx), Name of Student_2 (Roll 
+No_2: xxxxxxxxxxxxx), Name of Student_3 (Roll No_3: xxxxxxxxxxxxx), and Name of 
+Student_4 (Roll No_4: xxxxxxxxxxxxx) have carried out the research work presented in this 
+Project Report entitled “Title of Mini Project Report” in partial fulfilment of the requirements 
+for the award of the Bachelor of Technology in Computer Science & Engineering f rom Dr. 
+A.P.J. Abdul Kalam Technical University, Lucknow, under our supervision. The Project Report 
+embodies results of original work, and studies are carried out  by the students herself/himself. 
+The contents of the Project Report do not form the basis for  the award of any other degree to 
+the candidate or to anybody else from this or any other University/Institution.  < Times New 
+Roman, font size 12> 
+ 
+Signature 
+ 
+(Name of Supervisor) 
+ 
+(Designation) 
+CSE 
+NIET Greater Noida 
+ 
+Date:  
+ 
+ 
+                Signature  
+ 
+  (Name of HOD) 
+ 
+(Designation) 
+                 CSE 
+            NIET Greater Noida 
+ 
+                              
+  
+--- Page 51 ---
+ 
+iii 
+ 
+ACKNOWLEDGEMENTS  
+<Times New Roman, font size 14> 
+ 
+We would like to express my gratitude towards <Guide name> for their guidance and constant 
+supervision as well as for providing necessary information regarding the project & also for 
+their support in completing the project. 
+Our thanks and appreciations to respected <HOD>, <Dy. HOD>, for their motivation and 
+support throughout. 
+<Times New Roman, font size 12> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 52 ---
+ 
+iv 
+ 
+ABSTRACT 
+ 
+<Times New Roman, font size 14> 
+ 
+ 
+<It should be typed single line spacing, in Times New Roman with font size 12 .>   
+ 
+  
+--- Page 53 ---
+ 
+v 
+ 
+ 
+TABLE OF CONTENTS 
+                                                                                                                Page No. 
+Declaration                                                                                                    i  
+Certificate                                                                                                       ii 
+Acknowledgements                                                                                       iii                                                                                            
+Abstract                                                                                                          iv  
+Dedication (optional)                                                                                      
+List of Tables                                                                                     vii  
+List of Figures                                                                                          viii 
+List of Abbreviations                   ix                                                                            
+CHAPTER 1: INTRODUCTION                           1-25 
+1.1 BACKGROUND                 1 
+      1.1.1                                                       4 
+      1.1.2           9 
+       1.1.2.1          
+      1.1.2.2             
+      1.1.2.3           
+ 
+1.2 IDENTIFIED ISSUES/RESEARCH GAPS    15 
+1.3 OBJECTIVE AND SCOPE           
+1.4 PROJECT REPORT ORGANIZATION      
+   
+……………… 
+CHAPTER 2: LITERATURE REVIEW                   26-40 
+2.1                                
+2.2            
+      2.2.1           
+2.3            
+ ………………………………….…… 
+CHAPTER 3: REQUIREMENTS AND ANALYSIS 
+ 3.1 Requirements Specification 
+ 3.2 Planning and Scheduling 
+--- Page 54 ---
+ 
+vi 
+ 
+ 3.3 Software and Hardware Requirements 
+ 3.4 Preliminary Product Description 
+ 
+CHAPTER 4: PROPOSED METHODOLOGY               41-70 
+           
+ ………………………………….…… 
+CHAPTER 5: RESULTS                           71- 80 
+CHAPTER 6: CONCLUSION AND FUTURE WORK               81-82  
+REFERENCES         120 
+APPENDICES         122 
+PUBLICATIONS                                    123 
+PLAGIARISM REPORT        124 
+CURRICULUM VITAE                   125 
+ 
+ 
+  
+--- Page 55 ---
+ 
+vii 
+ 
+LIST OF TABLES 
+ 
+Table No. Table Caption Page No 
+4.1 Output for Tokenization 72 
+5.1 Dataset 48 
+5.2 Comparison of accuracy of DL-based 
+Method with NLP techniques and Used 
+Methods 
+58 
+  
+--- Page 56 ---
+ 
+viii 
+ 
+LIST OF FIGURES 
+ 
+Fig No Caption Page No 
+1.1 NLP 13 
+4.1 Block Diagram 58 
+4.2 Text Normalization 60 
+4.3 Example of Lemmatization 61 
+4.4 Example for Word Embedding 63 
+4.5 Recurrent Neural Network 64 
+5.1 Label Values 69 
+5.2 Applying stopwords 69 
+5.3 EDA 70 
+5.4 Applying Multilabel Binarizer 70 
+5.5 Final corpus before training 71 
+5.6 Generating word cloud 71 
+5.7 Count vectorizer 72 
+ 
+  
+--- Page 57 ---
+ 
+ix 
+ 
+LIST OF ABBREVIATIONS 
+ 
+Abbreviation Full Form 
+DL Deep learning 
+LDA Latent Dirichlet allocation 
+LSTM Long short-term memory 
+GRU Gated Recurrent Unit 
+NLP Natural language processing 
+TF-IDF Term Frequency-Inverse Document Frequency 
+GloVe Global Vectors 
+CURB Scalable Online Algorithm 
+EANN Event Adversarial Neural Network 
+BiLSTM Bidirectional LSTM 
+CNN Convolutional neural network 
+MLP Multilayer perceptron 
+API Application programming interface 
+  
+NB Naive Bayes 
+CNN Convolution neural network 
+NER Named Entity Recognition 
+KNN K-Nearest Neighbours 
+  
+  
+ 
+--- Page 58 ---
+ 
+ 
+ 
+CHAPTER 1 
+<Font size 20> 
+ 
+INTRODUCTION: 
+<Times New Roman, Font size 12> 
+ 
+ 
+1.1 OBJECTIVES: 
+ Write text here…………. 
+< Times New Roman, Font size 12> 
+  
+--- Page 59 ---
+  
+  
+ii 
+ 
+REFERENCES  
+<Times New Roman, Font size 12, IEEE Referencing Style> 
+ 
+ [S.No.] Author’s name. Author’s Surname, “Title of article”, Journal Title, Volume number, 
+issue number, page numbers, Year. Available Online: URL 
+ 
+ [1] Robles,T, Alcaria,R., de.Andrés, D.M., de.la.Cruz, M.N., Calero, R..,Iglesias,S., & Lopez, 
+.M, “An IoT based reference architecture for smart water management processes”,  J. Wirel. 
+Mob. Networks Ubiquitous Comput. Dependable Appl, 6(1), 4-23. (2015). 
+[2] Lee,.S.W., Sarp,.S., Jeon, .D.J., & .Kim, .J.H.. “Smart water grid: the future water 
+management platform”. Desalination and Water Treatment, 55(2), 339-346, (2015). 
+--- Page 60 ---
+  
+  
+iii 
+ 
+  
+APPENDICES 
+<Times New Roman, Font size 12> 
+(Appendix may include Raw datasets used, Computer Programs, Fundamental 
+Theorems, Charts, Graphs, Audio Video File Links, Any Probability Distribution 
+used, Log Table Used, etc.) 
+ 
+  
+--- Page 61 ---
+  
+  
+iv 
+ 
+PUBLICATIONS 
+<Please paste the actual online published paper showing conference / journal 
+name and year of publication as appearing on the conference/ journal website> 
+  
+--- Page 62 ---
+  
+  
+v 
+ 
+PLAGIARISM REPORT 
+(1st page only mentioning the plagiarism (%) level) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+--- Page 63 ---
+  
+  
+vi 
+ 
+CURRICULUM VITAE  
+<Please write one page latest CV of the student> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

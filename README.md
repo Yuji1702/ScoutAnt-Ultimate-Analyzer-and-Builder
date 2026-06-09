@@ -45,3 +45,41 @@ Clone and set up the project locally:
 ```bash
 git clone https://github.com/Yuji1702/ScoutAnt-Ultimate-Analyzer-and-Builder.git
 cd ScoutAnt-Ultimate-Analyzer-and-Builder
+
+## Git Push with Git LFS
+
+This repository already includes Git LFS patterns in `.gitattributes` for large files (e.g. `*.pkl`, `*.parquet`, `*.json`, and `match_stats_db.json`). To prepare and push the repository to GitHub with LFS-managed files, you can use the provided helper scripts in the `scripts/` folder.
+
+- PowerShell (Windows):
+
+```powershell
+.
+scripts/setup_and_push_git_lfs.ps1 -remote "https://github.com/OWNER/REPO.git"
+```
+
+- Bash (Linux/macOS/WSL):
+
+```bash
+scripts/setup_and_push_git_lfs.sh https://github.com/OWNER/REPO.git
+```
+
+What the helper scripts do:
+- Run `git lfs install`.
+- Ensure `.gitattributes` is staged.
+- Stage all changes and commit (if any).
+- Optionally add the `origin` remote if provided.
+- Push the current branch to `origin`.
+
+If you prefer to run commands manually, these are the steps:
+
+```bash
+git lfs install
+git add .gitattributes
+git add -A
+git commit -m "Prepare repo and track large files with Git LFS"
+git remote add origin https://github.com/OWNER/REPO.git   # if not set
+git push -u origin main
+```
+
+Replace `https://github.com/OWNER/REPO.git` with your repository URL and `main` with your default branch if different.
+
